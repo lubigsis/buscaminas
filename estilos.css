@@ -28,20 +28,21 @@ span{
 }
 
 .tablero {
-    width: 400px;
-    height: 400px;
+    width: 404px;
+    height: 404px;
     border: 10px solid rgb(40, 3, 103);
-    background-color: rgb(152, 195, 203);
+    background-color: rgb(192, 210, 214);
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    border-radius: 15px;
+   /* border-radius: 15px;*/
+   cursor: pointer;
 }
 
 .tablero div {
     width: 48px;
     height: 48px;
-    border: 1px solid white;
+    border: 1px solid #fff;
     font-size: 30px;
     display: flex;
     justify-content: center;
