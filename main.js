@@ -34,13 +34,31 @@ function clickFicha(){
         else if (ficha.innerText == '🚩'){
             ficha.innerText = '';
         }
+        return;
     }
+
+    if (ubicacionMinas.includes(ficha.id)) {
+        alert("PERDISTE");
+        gameOver = true;
+        return;
+
+}
+}
+
+function setMinas() {  //Establezco 5 ubicaciones de minas
+    ubicacionMinas.push("2-2");
+    ubicacionMinas.push("2-3");
+    ubicacionMinas.push("5-6");
+    ubicacionMinas.push("3-4");
+    ubicacionMinas.push("1-1");
+  
 }
 
 
 function startGame() {
     document.getElementById("minas-contador").innerText = minasCantidad;
     document.getElementById('flag-btn').addEventListener('click', setFlag);
+    setMinas();
  //-----------------------------------------------tablero---------------------------
     for (let r = 0; r < rows; r++) {
         let row = [];
