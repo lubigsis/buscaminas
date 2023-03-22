@@ -38,12 +38,30 @@ function clickFicha(){
     }
 
     if (ubicacionMinas.includes(ficha.id)) {
-        alert("PERDISTE");
+      
         gameOver = true;
+        descubroMinas();
         return;
 
+    }
+    let coords = ficha.id.split("-"); // "0-0" -> ["0", "0"]
+    let r = parseInt(coords[0]);
+    let c = parseInt(coords[1]);
+    checkMina(r, c);
 }
+
+function descubroMinas() {
+    for (let r= 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let ficha = board[r][c];
+            if (ubicacionMinas.includes(ficha.id)) {
+                ficha.innerText = "💣";
+                ficha.style.backgroundColor = "red";                
+            }
+        }
+    }
 }
+
 
 function setMinas() {  //Establezco 5 ubicaciones de minas
     ubicacionMinas.push("2-2");
