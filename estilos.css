@@ -17,14 +17,16 @@ body {
 h1{
     margin: 30px;
     font-size: 34px;
-    color: rgb(6, 6, 153);
+    color: rgb(5, 5, 110);
     letter-spacing: 2px;
 }
 
 span{
-    color: blue;
-    font-size: 37px;
-    font-weight: bold;
+    color: red;
+    font-size: 24px;
+   /* font-weight: bold;*/
+    letter-spacing: 5px;
+    font-family: monospace;
 }
 
 .tablero {
@@ -53,7 +55,8 @@ span{
 
 
 .ficha-clicked {
-    background-color: rgb(17, 3, 121);
+    background-color: rgb(138, 149, 152);
+  
 }
 
 

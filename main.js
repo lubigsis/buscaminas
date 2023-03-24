@@ -22,10 +22,12 @@ function setFlag(){
 }
 
 
-
-
-
 function clickFicha(){
+    if (gameOver || this.classList.contains("ficha-clicked")) {
+        return;  //q' no procese lo q' viene a continuación si se cumple la presente condición.
+    }
+
+
     let ficha = this; //se refiere a la ficha que fue clickeada.
     if (flagEnabled){
         if (ficha.innerText == ''){
@@ -60,6 +62,73 @@ function descubroMinas() {
             }
         }
     }
+}
+
+//veo los límites para ir poniendo los números que indican las minas cerca.
+function checkMina(r, c){
+    if (r < 0 || r >= rows ||  c < 0  || c >= columns){
+        return;
+    }
+    if (board[r][c].classList.contains("ficha-clicked")) { //para no clicker la misma ficha
+        return;
+    }
+    
+    board[r][c].classList.add("ficha-clicked");
+
+    fichasClicked += 1;
+
+    let minasEncontradas = 0;
+
+    //---------------------Arriba 3
+    minasEncontradas += checkFicha(r - 1, c - 1); //arriba - izq.
+    minasEncontradas += checkFicha(r - 1, c);  //arriba
+    minasEncontradas += checkFicha(r - 1, c + 1);  //arriba - der.
+
+    //-------------------izq. y der.
+    minasEncontradas += checkFicha(r, c - 1);   //izq.
+    minasEncontradas += checkFicha(r, c + 1);   //der.
+    
+    //----------------------abajo 3
+    minasEncontradas += checkFicha(r + 1, c - 1); //abajo - izq.
+    minasEncontradas += checkFicha(r + 1, c);   //abajo 
+    minasEncontradas += checkFicha(r + 1, c + 1); //abajo - der.
+    
+    if (minasEncontradas > 0) {
+            board[r][c].innerText = minasEncontradas;
+            board[r][c].classList.add('x' + minasEncontradas.toString());
+    }
+    else{
+   //--------------------------------arriba 3
+        checkMina(r - 1, c - 1);   //arriba - izq.
+        checkMina(r - 1, c);       //arriba
+        checkMina(r - 1, c + 1);   //arriba der.
+
+    //---------------------------izq. y derecha.
+        checkMina(r, c - 1);      //left
+        checkMina(r, c + 1);      //right
+
+    //--------------------------------abajo 3
+         checkMina(r + 1, c - 1);    //abajo izq.
+         checkMina(r + 1, c);        //abajo
+         checkMina(r + 1, c + 1);    //abajo der.
+    }
+
+    if (fichasClicked == rows * columns - minasCantidad) {
+        document.getElementById('minas-contador').innerText = 'LOCALIZADAS';
+        gameOver = true;
+    }
+
+}
+
+
+function checkFicha(r, c){
+    if (r < 0 || r >= rows ||  c < 0  || c >= columns){
+        return 0;
+    }
+    if (ubicacionMinas.includes(r.toString() + '-' + c.toString())){
+        return 1;
+    }
+    return 0;
 }
 
 
